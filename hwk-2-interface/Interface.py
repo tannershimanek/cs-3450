@@ -1,5 +1,7 @@
 class WeaponBehavior:
-    def useWeapon(self, weapon) -> None:
+    def useWeapon(self, weapon: str) -> None:
+        if weapon is None:
+            raise TypeError
         print(weapon)
 
 
@@ -7,14 +9,15 @@ class Character:
     def __init__(self):
         self.weaponBehavior = None
 
-    def setWeapon(self, weapon) -> None:
+    def setWeapon(self, weapon: WeaponBehavior) -> None:
         self.weaponBehavior = weapon
 
     def getWeapon(self) -> WeaponBehavior:
         return self.weaponBehavior
 
     def fight(self) -> None:
-        pass
+        msg = 'fight not implemented, override method using Character class'
+        raise NotImplementedError(msg)
 
 
 class King(Character):
