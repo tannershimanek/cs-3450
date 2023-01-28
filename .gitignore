@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,csharp,java,visualstudio,visualstudiocode,c++,node,macos,vim,windows,emacs
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,csharp,java,visualstudio,visualstudiocode,c++,node,macos,vim,windows,emacs
 
+demo/
 ### C++ ###
 # Prerequisites
 *.d
