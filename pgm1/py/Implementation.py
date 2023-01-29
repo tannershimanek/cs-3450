@@ -25,13 +25,17 @@ class LinkedList:
     def __iter__(self):
         node = self.head
         while node is not None:
-            yield node
+            # we yield the data instead of the node so that
+            # our queue can easily change implementations to
+            # tyield the node just delete the .data
+            yield node.data
             node = node.next
 
     def __next__(self) -> Node:
         yield self.head.next
 
     def add(self, data) -> None:
+        '''Add an item to the linked list.'''
         newNode = Node(data)
         if (self.head):
             current = self.head
@@ -42,6 +46,7 @@ class LinkedList:
             self.head = newNode
 
     def removeNode(self, item) -> None:
+        '''Remove a node by its value.'''
         if self.head is None:
             return None
 
@@ -53,16 +58,23 @@ class LinkedList:
                 temp.next = temp.next.next
                 return None
             else:
-                _remove_helper(temp.next, item)
+                return _remove_helper(temp.next, item)
 
         if self.head.data == item:
             self.head = self.head.next
             return None
         else:
             return _remove_helper(self.head, item)
+    
+    def remove(self) -> Node:
+        '''Removes the head of the linked list.'''
+        if self.head is not None:
+            item = self.head.data
+            self.head = self.head.next
+            return item
 
     def getNode(self, item) -> Node:
-        '''Returns the node, use get() to get data'''
+        '''Returns the node whose data matches item.'''
         if self.head is None:
             return None
         
@@ -80,26 +92,14 @@ class LinkedList:
         else:
             return _get_helper(self.head, item)
     
-    def get(self, item) -> any:
-        '''Returns the data, use getNode() to get the Node.'''
+    def get(self) -> any:
+        '''Returns the head of the list.'''
         if self.head is None:
             return None
-        
-        def _get_helper(current, item):
-            temp = current
-            if current.next is None:
-                return None
-            if temp.next.data == item:
-                return temp.next.data
-            else:
-                return _get_helper(temp.next, item)
-        
-        if self.head.data == item:
-            return self.head.data
-        else:
-            return _get_helper(self.head, item)
+        return self.head.data
 
-    def size(self):
+    def size(self) -> int:
+        '''Get the size of the linked list.'''
         count = 0
         current = self.head
         while (current):
@@ -107,23 +107,23 @@ class LinkedList:
             current = current.next
         return count
 
-    def clear(self):
-        if self.head is None:
-            return None
-        current = self.head
-        while (current):
-            self.removeNode(current)
-            current = current.next
+    def clear(self) -> None:
+        '''Remove all items from the linked list.'''
+        if self.head is not None:
+            self.head = self.head.next
+            self.clear()
+        return self
 
-    def print_list(self):
+    def print_list(self) -> None:
+        '''Print all list items'''
         current = self.head
         while (current):
             print(current.data)
             current = current.next
 
 
-# this is a hack of a way to approach this.
-# It should be properly redonein the future.
+# This is a hack of a way to approach this.
+# It should be properly redone in the future.
 class DynamicArray:
     def __init__(self):
         self.arr = list()
@@ -134,12 +134,21 @@ class DynamicArray:
 
     def __repr__(self):
         return 'DynamicArray()'
+    
+    def __iter__(self):
+        for item in self.arr:
+            yield item
 
     def add(self, item):
         self.arr.append(item)
         self._size = len(self.arr)
 
-    def remove(self, item):
+    def remove_item(self, item):
+        self.arr.remove(item)
+        self._size = len(self.arr)
+
+    def remove(self):
+        item = self.arr[0]
         self.arr.remove(item)
         self._size = len(self.arr)
 
@@ -152,3 +161,4 @@ class DynamicArray:
     def clear(self):
         self.arr = list()
         self._size = len(self.arr)
+        return self
