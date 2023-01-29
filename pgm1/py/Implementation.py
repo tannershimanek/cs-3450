@@ -26,8 +26,8 @@ class LinkedList:
         node = self.head
         while node is not None:
             # we yield the data instead of the node so that
-            # our queue can easily change implementations to
-            # tyield the node just delete the .data
+            # our queue can easily change implementations.
+            # To yield the node just delete the .data
             yield node.data
             node = node.next
 
