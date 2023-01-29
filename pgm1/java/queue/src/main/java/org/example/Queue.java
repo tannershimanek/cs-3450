@@ -5,6 +5,7 @@ public class Queue<T> {
     private List<T> list;
 
     public Queue(List<T> list) {
+        if (list.size() > 0) { list.clear(); }
         this.list = list;
     }
 
@@ -33,6 +34,7 @@ public class Queue<T> {
     }
 
     public void changeImpl(List<T> newList) {
+        newList.clear();
         newList.addAll(list);
         list = newList;
     }
