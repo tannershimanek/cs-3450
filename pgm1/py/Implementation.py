@@ -1,28 +1,37 @@
 # A single node of a singly linked list
 class Node:
-    def __init__(self, data=None, next=None):
+    def __init__(self, data=None, next=None) -> None:
         self.data = data
         self.next = next
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Node data is {self.data} and next is {self.next}'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'Node(data={self.data}, next={self.next})'
 
 
-# singly linked list
+# A singly linked list
 class LinkedList:
-    def __init__(self):
+    def __init__(self) -> None:
         self.head = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'LinkedList head is {self.head}'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return 'LinkedList()'
 
-    def add(self, data):
+    def __iter__(self):
+        node = self.head
+        while node is not None:
+            yield node
+            node = node.next
+
+    def __next__(self) -> Node:
+        yield self.head.next
+
+    def add(self, data) -> None:
         newNode = Node(data)
         if (self.head):
             current = self.head
@@ -32,17 +41,79 @@ class LinkedList:
         else:
             self.head = newNode
 
-    def remove(self):
-        pass
+    def removeNode(self, item) -> None:
+        if self.head is None:
+            return None
 
-    def get(self):
-        pass
+        def _remove_helper(current, item) -> None:
+            temp = current
+            if current.next is None:
+                return None
+            if temp.next.data == item:
+                temp.next = temp.next.next
+                return None
+            else:
+                _remove_helper(temp.next, item)
+
+        if self.head.data == item:
+            self.head = self.head.next
+            return None
+        else:
+            return _remove_helper(self.head, item)
+
+    def getNode(self, item) -> Node:
+        '''Returns the node, use get() to get data'''
+        if self.head is None:
+            return None
+        
+        def _get_helper(current, item):
+            temp = current
+            if current.next is None:
+                return None
+            if temp.next.data == item:
+                return temp.next
+            else:
+                return _get_helper(temp.next, item)
+        
+        if self.head.data == item:
+            return self.head.data
+        else:
+            return _get_helper(self.head, item)
+    
+    def get(self, item) -> any:
+        '''Returns the data, use getNode() to get the Node.'''
+        if self.head is None:
+            return None
+        
+        def _get_helper(current, item):
+            temp = current
+            if current.next is None:
+                return None
+            if temp.next.data == item:
+                return temp.next.data
+            else:
+                return _get_helper(temp.next, item)
+        
+        if self.head.data == item:
+            return self.head.data
+        else:
+            return _get_helper(self.head, item)
 
     def size(self):
-        pass
+        count = 0
+        current = self.head
+        while (current):
+            count += 1
+            current = current.next
+        return count
 
     def clear(self):
-        pass
+        if self.head is None:
+            return None
+        current = self.head
+        while (current):
+            self.removeNode(current)
+            current = current.next
 
     def print_list(self):
         current = self.head
@@ -51,6 +122,8 @@ class LinkedList:
             current = current.next
 
 
+# this is a hack of a way to approach this.
+# It should be properly redonein the future.
 class DynamicArray:
     def __init__(self):
         self.arr = list()
