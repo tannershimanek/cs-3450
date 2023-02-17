@@ -177,3 +177,5 @@ class HighLow:
     
     def __str__(self):
         print('highlow observer')
+
+# https://www.geeksforgeeks.org/observer-method-python-design-patterns/
