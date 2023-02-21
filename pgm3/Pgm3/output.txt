@@ -1,0 +1,2 @@
+[    _count = 0	# A shared value for Shape classes with no current objects]
+[        cls._count += 1         # Create/update class attribute]
