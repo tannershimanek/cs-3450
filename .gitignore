@@ -1,7 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/c++,vim,java,node,emacs,macos,csharp,python,windows,visualstudio,visualstudiocode,jetbrains,intellij+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=c++,vim,java,node,emacs,macos,csharp,python,windows,visualstudio,visualstudiocode,jetbrains,intellij+all
 
-
+misc/
 demo/
 ### C++ ###
 # Prerequisites
