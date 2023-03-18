@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class Command(ABC):
+    """Command interface. All commands must implement this interface."""
 
     @abstractmethod
     def execute(self) -> None:
@@ -16,8 +17,8 @@ class Command(ABC):
         pass
 
 
-
 class AddCommand(Command):
+    """Command to add a key-value pair to a database."""
 
     def __init__(self, database, key, value):
         self.database = database
@@ -32,16 +33,16 @@ class AddCommand(Command):
 
     def undo(self):
         if self.key in self.database.data:
-            # print('Undid AddCommand')
             self.database.remove(self.key)
         else:
             raise Exception('Key not in database')
-    
+
     def get_name(self):
         return 'AddCommand'
 
 
 class UpdateCommand(Command):
+    """Command to update a key-value pair in a database."""
 
     def __init__(self, database, key, value):
         self.database = database
@@ -58,9 +59,7 @@ class UpdateCommand(Command):
 
     def undo(self):
         if self.key in self.database.data:
-            # print('Undid UpdateCommand')
             self.database.update(self.key, self.previous_value)
-            # print(self.database.display())
         else:
             raise Exception('Key not in database')
 
@@ -69,12 +68,13 @@ class UpdateCommand(Command):
 
 
 class RemoveCommand(Command):
+    """Command to remove a key-value pair from a database."""
 
     def __init__(self, database, key):
         self.database = database
         self.key = key
         self.value = None
-    
+
     def execute(self):
         if self.key in self.database.data:
             self.value = self.database.get(self.key)
@@ -84,9 +84,7 @@ class RemoveCommand(Command):
 
     def undo(self):
         if self.key not in self.database.data:
-            # print('Undid RemoveCommand')
             self.database.add(self.key, self.value)
-            # print(self.database.display())
         else:
             raise Exception('Key already in database')
 
@@ -95,6 +93,7 @@ class RemoveCommand(Command):
 
 
 class MacroCommand(Command):
+    """Command to execute a series of commands."""
 
     def __init__(self):
         self.commands = []
@@ -121,6 +120,7 @@ class MacroCommand(Command):
 
 
 class Invoker:
+    """Invoker class that executes commands."""
 
     def __init__(self):
         self.command = None
