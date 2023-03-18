@@ -5,6 +5,10 @@ class Command(ABC):
     """Command interface. All commands must implement this interface."""
 
     @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
     def execute(self) -> None:
         pass
 
