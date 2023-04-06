@@ -14,7 +14,7 @@ def parse_file(filename: str) -> Directory:
                 # Create a new directory
                 name = line.strip(" :")
                 new_dir = Directory(name)
-                
+
                 if stack:
                     stack[-1].add(new_dir)
                 stack.append(new_dir)
