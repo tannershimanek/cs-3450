@@ -3,6 +3,8 @@
 
 misc/
 demo/
+other/
+
 ### C++ ###
 # Prerequisites
 *.d
